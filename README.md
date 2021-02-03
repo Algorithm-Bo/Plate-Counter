@@ -1,27 +1,25 @@
 # Plate-Counter
+
 Modifiziertes U-Net zur semantischen Segmentierung
-Voraussetzung: Trainingsbilder und dazugehörende Annotationsmasken
 
-Programmiersprache Python.
-Die installierten Bibliotheken befinden sich in der Datei „requirements.txt“
+Programmiersprache Python. Die installierten Bibliotheken befinden sich in der Datei „requirements.txt“.
 
-Bilder und Masken in entsprechende Ordner „images_train“ (Bilder) bzw. „binary_masks“ (Annotationsmasken) kopieren
-Skript „make_trainfolders.py“ aufrufen (Erzeugt Ordnerstruktur mit Trainingsdatensatz)
+Voraussetzung: Trainingsbilder, dazugehörende Annotationsmasken, Validierungsbilder und Testbilder.
+Ablauf
 
-Augmentierte Bilder erzeugen mit Skript data_augmentation.py
-Namen von ab Nummer nach Originalbilder.PNG vergeben
-Orginaltrainingsbilder und Masken zu den Unterordnern „img“ und „masks“ hinzufügen
-Skript „make_trainfolders.py“ aufrufen (Erzeugt Ordnerstruktur inklusive augmentierter Bildern)
+Die Bilder und Masken in entsprechende Ordner „images_train“ (Bilder) bzw. „binary_masks“ (Annotationsmasken) kopieren
 
-Ordner der Originalbilder und augmentierten Bilder in gemeinsamen Ordner kopieren (Trainingsdatensatz fürs FCN)
+Augmentierte Trainingsbilder erzeugen mit Skript data_augmentation.py
 
-Testbilder (dürfen nicht in den Trainingsbildern vorhanden sein) in den Testbildordner „images_test“ kopieren
-Skript „make_testfolders.py“ aufrufen (Erzeugt Ordnerstruktur mit Testbildern)
+Die augmentierten Bilder und Masken werden zusammen mit den Originalbildern und Masken in dieUnterordner „img“ und „masks“ des Ordners „images_augmented“ gespeichert
 
-Modell trainieren mit Skript „train_model.py“ (Modell wird gespeichert unter „my_model.h5“)
-Oder Vorhersagen mit vortrainiertem Modell „predict.py“ (lädt „my_model.h5)
-Ausgabe der Ergebnisbilder (Binärbilder) jeweils in Ordner „results“
+Die Skripte „make_trainfolders.py“, „make_validationfolders.py“ und „make_testfolders.py“ erzeugen die Ordnerstrukturen für die Trainings- und Validierungsbilder und -masken und die Testbilder. Die Testbilder (dürfen nicht in den Trainingsbildern vorhanden sein) in den Testbildordner „images_test“ kopieren
 
-Auswerten der Ergebnisbilder (Zählen+Positionen) mit Skript „evaluate.py“
-Ausgabe der Zählergebnisse des Testdatensatzes in CSV Datei „results.CSV“ in Ordner „result_lists_CSV“
-Ausgabe der Ergebnisse (Objektpositionen im Einzelbild) in JSON Dateien „Nummer_Testbild.JSON“ im Ordner „JSON_counted_objects“
+Modell trainieren mit Skript „train_model.py“ (Modell wird gespeichert). Oder Vorhersagen mit bereits trainiertem Modell mit Skript „predict.py“ (lädt zuvor gespeichertes Modell)
+
+Die Ausgabe der Ergebnisbilder (Probabilty maps und Binärbilder) erfolgt im Ordner „results“
+
+Auswerten der Ergebnisbilder (Anzahl der Objekte, Positionen und Größe bestimmen) mit Skript „evaluate_results.py“.
+
+Die Ergebnisse werden in jeweils einer JSON-Datei pro Bild gespeichert. Zusätzlich wird die Anzahl der Objekte in eine CSV-Datei im Ordner „CSV_lists“ gespeichert. Die Visualisierung der Ergebnisse erfolgt mit Bounding Boxes
+

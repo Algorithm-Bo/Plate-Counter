@@ -17,25 +17,27 @@ def make_square(img):
         img_square = np.hstack((img,add_h))
         return img_square
 
-folder_name = 'images_lab/pseudomonas'
-folder_name_labeled = 'images_lab_with_points/pseudomonas'
+# folders
+folder_name = 'images_lab/staphylococcus'
+folder_name_annotated = 'images_lab_with_points/staphylococcus'
 
-output_foldername = 'images_pseudomonas'
-output_foldername_labeled = 'images_pseudomonas_with_points'
+output_foldername = 'images_staphylococcus_2'
+output_foldername_annotated = 'images_stapylococcus_with_points_2'
+
+output_names_dishes = 'names_dishes_staphylococcus_2.CSV'
+output_size_dishes = 'size_dishes_staphylococcus_2.CSV'
+
+# Bild mit Hough Kreisen
+output_foldername2 = 'images_hough_circles_stapylococcus_2'
 
 if not os.path.isdir(output_foldername):
     os.mkdir(output_foldername)
 
-if not os.path.isdir(output_foldername_labeled):
-    os.mkdir(output_foldername_labeled)
+if not os.path.isdir(output_foldername_annotated):
+    os.mkdir(output_foldername_annotated)
 
 filename_list = os.listdir(folder_name)
 # print(filename_list)
-
-output_names_dishes = 'names_dishes_pseudomonas.CSV'
-output_size_dishes = 'size_dishes_pseudomonas.CSV'
-
-output_foldername2 = 'images_hough_dishes_pseudomonas'
 
 names_list_dishes = []
 size_list_dishes = []
@@ -45,15 +47,15 @@ for image in range(0, len(filename_list)):
     filename = filename_list[image]
 
     path = folder_name + '/' + filename
-    path_labeled = folder_name_labeled + '/' + filename[:2] + 'a' + filename[2:]
-    # print(path_labeled)
+    path_annotated = folder_name_annotated + '/' + filename[:2] + 'a' + filename[2:]
+    # print(path_annotated)
 
     img = cv2.imread(path)
-    img_labeled = cv2.imread(path_labeled)
+    img_annotated = cv2.imread(path_annotated)
 
     # output_filename = filename[:-4] + '.PNG'
     # output_path = output_foldername + '/' + output_filename
-    # output_path_labeled = output_foldername_labeled + '/' + output_filename
+    # output_path_annotated = output_foldername_annotated + '/' + output_filename
     # print(output_path)
 
     # Grauwertbild erzeugen
@@ -79,18 +81,16 @@ for image in range(0, len(filename_list)):
             center = (i[0], i[1])
             
             radius = i[2]           
-            # new_output_path = output_path[:-4] + '_' + str(dish_number) + '.PNG'
-            # new_output_path_labeled = output_path_labeled[:-4] + '_' + str(dish_number) + '_labeled' + '.PNG'
-            
+                        
             new_output_path = output_foldername + '/' + str(dish_number) + '.PNG'
-            new_output_path_labeled = output_foldername_labeled + '/' + str(dish_number) + '_with_points' + '.PNG'
+            new_output_path_annotated = output_foldername_annotated + '/' + str(dish_number) + '_with_points' + '.PNG'
 
             center_x = center[0]
             center_y = center[1]
 
             # Rand
-            # border = 10
-            # radius = radius + border 
+            border = 20
+            radius = radius + border 
                     
             # ROI festlegen
             x_start = center_x - radius
@@ -103,40 +103,40 @@ for image in range(0, len(filename_list)):
             if y_start < 0:
                 print('y outside')
                 y_start = 0
-                     
+
+            print('passt')
+                
             new_img = img[y_start:(center_y + radius), x_start:(center_x + radius)]
-            new_img_labeled = img_labeled[y_start:(center_y + radius), x_start:(center_x + radius)]
+            new_img_annotated = img_annotated[y_start:(center_y + radius), x_start:(center_x + radius)]
 
             size_y, size_x = new_img.shape[:2] 
             if size_x != size_y:
                 print('no square', dish_number)
                 new_img = make_square(new_img)
-                new_img_labeled = make_square(new_img_labeled)
+                new_img_annotated = make_square(new_img_annotated)
 
             # cv2.imshow("dish Nr." + str(dish_number) , new_img)
             # cv2.waitKey(0)
 
-            # if dish_in_image < 10:
             cv2.imwrite(new_output_path, new_img)
-            cv2.imwrite(new_output_path_labeled, new_img_labeled)
-            # dish_number -= 1
-
-            img_circles = img_labeled
+            cv2.imwrite(new_output_path_annotated, new_img_annotated)
+            
+            img_circles = img
             # circle center
-            # cv2.circle(img_circles, center, 1, (0, 0, 255), 5)
+            cv2.circle(img_circles, center, 1, (0, 0, 255), 5)
             # circle outline
-            # cv2.circle(img_circles, center, radius, (0, 0, 255), 5)
+            cv2.circle(img_circles, center, radius, (0, 0, 255), 5)
             # border
             # cv2.circle(img_circles, center, radius_b, (0, 255, 0), 5)
 
-            filename_labeled = filename[:2] + 'a' + filename[2:]
-            names_list_dishes.append(str(dish_number) + '.PNG; ' + filename_labeled)
+            filename_annotated = filename[:2] + 'a' + filename[2:]
+            names_list_dishes.append(str(dish_number) + '.PNG; ' + filename_annotated)
             
             size_list_dishes.append(size_x)
             size_list_dishes.append(size_y)
             size_list_dishes.append('next')
             dish_number += 1  
-            # dish_in_image +=1
+            
 
     # cv2.imshow("detected circles", img)
     # cv2.waitKey(0)
@@ -147,7 +147,7 @@ for image in range(0, len(filename_list)):
     output_filename2 = filename[:-4] + '_circles' + '.PNG'
     output_path2 = output_foldername2 + '/' + output_filename2
 
-    # cv2.imwrite(output_path2, img_circles)
+    cv2.imwrite(output_path2, img_circles)
 
 with open(output_names_dishes,'w') as fp:
     for elem in names_list_dishes:

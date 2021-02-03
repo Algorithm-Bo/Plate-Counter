@@ -26,15 +26,16 @@ IMG_CHANNELS = 3
 
 # configure folders
 # TEST_PATH = 'test_data_staphylococcus_512x512'
-TEST_PATH = 'images_test_beispiele'
+TEST_PATH = 'test_data_examples_difficult'
 
-output_foldername = 'results_val_split_0_25_batchsize_8_imgaug_staphylococcus_512x512_final_modified_beispiele'
+model_name ='model_32_filters_bn_batch_size_8_test_1'
+output_foldername = 'results_prediction/' + model_name
 
 # Free up RAM
 tf.keras.backend.clear_session()
 
 # load pretrained model
-model = load_model('my_model_512_modified.h5')
+model = load_model('models/' + model_name + '.h5')
 model.summary()
 
 # load test images
