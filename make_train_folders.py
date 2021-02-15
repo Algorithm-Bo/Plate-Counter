@@ -4,16 +4,15 @@ import os
 # folders for original and augmented data
 # images:
 
-folder_name1 = 'data/augmented_images_train_256x256_erosion/img'
-# folder_name1 = 'data/images_train_256x256_30'
+# folder_name1 = 'data/augmented_images_train_easy/img'
+folder_name1 = 'data/augmented_images_train_easy_256_special/img'
 
 # masks:
-folder_name2 = 'data/augmented_images_train_256x256_erosion/masks'
-# folder_name2 = 'data/binary_masks_train_256x256_30'
+# folder_name2 = 'data/augmented_images_train_easy/masks'
+folder_name2 = 'data/augmented_images_train_easy_256_special/masks'
 
 # output foldername
-output_foldername = 'train_data_256_erosion'
-# output_foldername = 'train_data_256_without_augmentation'
+output_foldername = 'train_data_easy_256_special_630'
 
 filename_list = os.listdir(folder_name1)
 print(filename_list)

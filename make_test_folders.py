@@ -6,10 +6,10 @@ import os
 # folder_name = 'data/images_test_beispielbilder_einfachere'
 # output_foldername = 'test_data_beispielbilder_einfachere'
 
-folder_name = 'data/examples_2'
-output_foldername = 'test_data_examples_difficult'
+folder_name = 'data/images_test_examples'
+output_foldername = 'test_data_examples'
 
-num_test_images = 5
+num_test_images = 15
 start_num = 0
 
 filename_list = os.listdir(folder_name)
