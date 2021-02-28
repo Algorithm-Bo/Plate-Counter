@@ -3,16 +3,13 @@ import os
 
 # folders for original and augmented data
 # images:
-
-# folder_name1 = 'data/augmented_images_train_easy/img'
-folder_name1 = 'data/augmented_images_train_easy_256_special/img'
+folder_name1 = 'data/augmented_images_train_easy/img'
 
 # masks:
-# folder_name2 = 'data/augmented_images_train_easy/masks'
-folder_name2 = 'data/augmented_images_train_easy_256_special/masks'
+folder_name2 = 'data/augmented_images_train_easy/masks'
 
 # output foldername
-output_foldername = 'train_data_easy_256_special_630'
+output_foldername = 'train_data_easy'
 
 filename_list = os.listdir(folder_name1)
 print(filename_list)

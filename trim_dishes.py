@@ -53,11 +53,6 @@ for image in range(0, len(filename_list)):
     img = cv2.imread(path)
     img_annotated = cv2.imread(path_annotated)
 
-    # output_filename = filename[:-4] + '.PNG'
-    # output_path = output_foldername + '/' + output_filename
-    # output_path_annotated = output_foldername_annotated + '/' + output_filename
-    # print(output_path)
-
     # Grauwertbild erzeugen
     img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     img_gray = cv2.medianBlur(img_gray, 5)
@@ -104,7 +99,7 @@ for image in range(0, len(filename_list)):
                 print('y outside')
                 y_start = 0
 
-            print('passt')
+            print('ok')
                 
             new_img = img[y_start:(center_y + radius), x_start:(center_x + radius)]
             new_img_annotated = img_annotated[y_start:(center_y + radius), x_start:(center_x + radius)]

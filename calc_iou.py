@@ -83,38 +83,32 @@ for image in range(0, len(filename_list)):
         precision = TP/(TP+FP)
     else:
         print('Precision Error!')
-        precision = 99999 
-    
+            
     if (TP+FN) != 0:
         sensitivity = TP/(TP+FN)
     else:
         print('Sensitivity Error!') 
-        sensitivity = 99999  
-
+        
     if (TP+TN+FP+FN) != 0:
         accuracy = (TP+TN)/(TP+TN+FP+FN)
     else:
         print('Accuracy Error!') 
-        accuracy = 99999  
-
+        
     if (TN+FP) != 0:
         false_positive_rate = FP/(TN+FP)
     else:
         print('FPR Error!')   
-        false_positive_rate = 99999
-
+        
     if ((2*TP)+FP+FN) != 0:
         dice = (2*TP)/((2*TP)+FP+FN)
     else:
         print('Dice Error!')   
-        dice = 99999
-
+       
     if (TP+FP+FN) != 0:
         iou = TP/(TP+FP+FN)
     else:
         print('IoU Error!')
-        iou = 99999 
-
+        
     print('Precision: ', precision)
     print('Sensitivity: ', sensitivity)
     print('Accuracy: ', accuracy)

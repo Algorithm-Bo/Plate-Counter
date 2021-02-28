@@ -23,11 +23,6 @@ for image in range(0, len(filename_list)):
 
     img = cv2.imread(path)
     
-    # output_filename = filename[:-4] + '_' + str(new_x) + 'x' + str(new_y) + '.PNG'
-    # output_filename = str(i) + '_binary' + '.PNG'
-    # output_filename = filename
-    
-    # output_filename = filename
     output_filename = str(image) + '.PNG'
 
     output_path = output_foldername + '/' + output_filename

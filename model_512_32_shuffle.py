@@ -57,7 +57,7 @@ def get_model(img_size):
     # change integers to floatingpoint values
     s = tf.keras.layers.Lambda(lambda x: x / 255)(inputs)
 
-    # Encoder
+    #Contraction path
     c1 = tf.keras.layers.Conv2D(32, (3, 3), activation='relu', kernel_initializer='he_normal', padding='same')(s)
     c1 = tf.keras.layers.Dropout(0.1)(c1)
     c1 = tf.keras.layers.Conv2D(32, (3, 3), activation='relu', kernel_initializer='he_normal', padding='same')(c1)
@@ -82,7 +82,7 @@ def get_model(img_size):
     c5 = tf.keras.layers.Dropout(0.3)(c5)
     c5 = tf.keras.layers.Conv2D(512, (3, 3), activation='relu', kernel_initializer='he_normal', padding='same')(c5)
 
-    # Decoder
+    #Expansive path 
     u6 = tf.keras.layers.Conv2DTranspose(256, (2, 2), strides=(2, 2), padding='same')(c5)
     u6 = tf.keras.layers.concatenate([u6, c4])
     c6 = tf.keras.layers.Conv2D(256, (3, 3), activation='relu', kernel_initializer='he_normal', padding='same')(u6)

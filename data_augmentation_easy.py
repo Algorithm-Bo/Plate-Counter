@@ -19,15 +19,11 @@ mask_folder = 'data/binary_masks_train_40'
 # output folder for augmented images and masks
 output_foldername = 'data/augmented_images_train_easy'
 
-# output_foldername = 'data/augmented_images_validation'
-
 filename_list = os.listdir(image_folder)
 print('number of files: ', len(filename_list))
 
 # filenames for augmented data starts with save_as_counter.PNG
 save_as_counter = len(filename_list)
-
-# image_ids = next(os.walk(image_folder))[1]
 
 image_list = np.zeros((len(filename_list), IMG_HEIGHT, IMG_WIDTH, IMG_CHANNELS), dtype=np.uint8)
 mask_list = np.zeros((len(filename_list), IMG_HEIGHT, IMG_WIDTH, 1), dtype=np.bool)

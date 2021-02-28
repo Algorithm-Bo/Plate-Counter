@@ -28,10 +28,10 @@ IMG_HEIGHT = 512
 IMG_CHANNELS = 3
 
 # configure folders
-# TEST_PATH = 'test_data_staphylococcus_512x512'
-TEST_PATH = 'test_data_examples_difficult'
+TEST_PATH = 'test_data_staphylococcus_512x512'
 
 model_name ='model_32_filters_bn_batch_size_8_test_1'
+
 output_foldername = 'results_prediction/' + model_name
 
 # load pretrained model
