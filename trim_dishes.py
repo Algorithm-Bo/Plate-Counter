@@ -21,15 +21,16 @@ def make_square(img):
 folder_name = 'images_lab/staphylococcus'
 folder_name_annotated = 'images_lab_with_points/staphylococcus'
 
-output_foldername = 'images_staphylococcus_2'
-output_foldername_annotated = 'images_stapylococcus_with_points_2'
+output_foldername = 'images_staphylococcus'
+output_foldername_annotated = 'images_stapylococcus_with_points'
 
-output_names_dishes = 'names_dishes_staphylococcus_2.CSV'
-output_size_dishes = 'size_dishes_staphylococcus_2.CSV'
+output_names_dishes = 'names_dishes_staphylococcus.CSV'
+output_size_dishes = 'size_dishes_staphylococcus.CSV'
 
-# Bild mit Hough Kreisen
-output_foldername2 = 'images_hough_circles_stapylococcus_2'
+# image with hough circles
+output_foldername2 = 'images_hough_circles_stapylococcus'
 
+# create output folders
 if not os.path.isdir(output_foldername):
     os.mkdir(output_foldername)
 
@@ -53,21 +54,20 @@ for image in range(0, len(filename_list)):
     img = cv2.imread(path)
     img_annotated = cv2.imread(path_annotated)
 
-    # Grauwertbild erzeugen
+    # make grayscale
     img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     img_gray = cv2.medianBlur(img_gray, 5)
         
     # cv2.imshow("Image gray", img_gray)
     # cv2.waitKey(0)
 
-    # Hough Transformation
+    # Hough transformation
     rows = img_gray.shape[0]
     # min_dist = abs(rows/3) -120
     min_dist = 540
 
     dishes = cv2.HoughCircles(img_gray, cv2.HOUGH_GRADIENT, 1, min_dist, param1=100, param2=20, minRadius=255, maxRadius=285)
-    # dishes = cv2.HoughCircles(img_gray, cv2.HOUGH_GRADIENT, 1, min_dist, param1=100, param2=20, minRadius=255, maxRadius=280)
-    
+        
     if dishes is not None:
         dishes = np.uint16(np.around(dishes))
 
@@ -83,11 +83,11 @@ for image in range(0, len(filename_list)):
             center_x = center[0]
             center_y = center[1]
 
-            # Rand
+            # border
             border = 20
             radius = radius + border 
                     
-            # ROI festlegen
+            # set ROI
             x_start = center_x - radius
             y_start = center_y - radius
             
@@ -110,7 +110,7 @@ for image in range(0, len(filename_list)):
                 new_img = make_square(new_img)
                 new_img_annotated = make_square(new_img_annotated)
 
-            # cv2.imshow("dish Nr." + str(dish_number) , new_img)
+            # cv2.imshow("Dish Nr." + str(dish_number) , new_img)
             # cv2.waitKey(0)
 
             cv2.imwrite(new_output_path, new_img)
@@ -133,7 +133,7 @@ for image in range(0, len(filename_list)):
             dish_number += 1  
             
 
-    # cv2.imshow("detected circles", img)
+    # cv2.imshow("Detected circles", img)
     # cv2.waitKey(0)
 
     if not os.path.isdir(output_foldername2):

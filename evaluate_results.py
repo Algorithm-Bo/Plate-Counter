@@ -41,7 +41,7 @@ def imshow_components(labels):
     # set bg label to black 
     labeled_img[label_hue==0] = 0
 
-    # show pictures
+    # show image
     # cv2.imshow('labeled', labeled_img)
     # cv2.waitKey()
     
@@ -166,7 +166,7 @@ for image in range(0, len(filename_list)):
     output_path_bb = output_foldername_bb + '/' + output_filename
 
     # print(image_path)
-    # JSON Koordinaten lesen und in Bild darstellen
+    # read JSON coordinates and show in image
 
     json_filename = filename[:-4] + '.JSON'
     json_path = json_folder + '/' + json_filename
@@ -177,7 +177,7 @@ for image in range(0, len(filename_list)):
 
     # pprint(data)
 
-    # Bild einlesen
+    # read image
     img = cv2.imread(image_path)
     img_resized = cv2.resize(img,(512,512))
 

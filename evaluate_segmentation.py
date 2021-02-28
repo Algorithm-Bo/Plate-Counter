@@ -29,17 +29,15 @@ for image in range(0, len(filename_list)):
 
     test_mask = cv2.imread(test_mask_path)
     gt_mask = cv2.imread(gt_mask_path)
+
     """
     cv2.imshow('Test Mask', test_mask)
     cv2.imshow('Ground Truth Mask', gt_mask)
     cv2.waitKey(0)
     """
+
     test_mask = test_mask[:,:,0]
     gt_mask = gt_mask[:,:,0]
-
-    # crop
-    # test_mask = test_mask[0:256,0:256] 
-    # gt_mask = gt_mask[0:256,0:256]
 
     height, width = test_mask.shape[:2] 
     # print(height)
@@ -47,10 +45,10 @@ for image in range(0, len(filename_list)):
 
     img_size = width
 
-    TP = 0 # richtig detektiert (test = 1, gt = 1)
-    FP = 0 # falsch detektiert (test = 1, gt = 0)
-    FN = 0 # Objekt nicht erkannt (test = 0, gt = 1)
-    TN = 0 # Hintergrund erkannt (test = 0, gt = 0)
+    TP = 0 # correct detected (test = 1, gt = 1)
+    FP = 0 # not correct detected (test = 1, gt = 0)
+    FN = 0 # not detected (test = 0, gt = 1)
+    TN = 0 # background correct detected (test = 0, gt = 0)
 
     # print(test_mask.shape)
     # print(gt_mask.shape)

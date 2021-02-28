@@ -45,10 +45,8 @@ TRAIN_PATH = 'train_data_easy_840'
 VALIDATION_PATH = 'validation_data'
 
 TEST_PATH = 'test_data_staphylococcus_512x512_20'
-TEST_PATH2 = 'test_data_examples'
 
 output_foldername = 'results/' + model_name
-output_foldername2 = 'results/' + model_name + '_examples'
 
 def get_model(img_size):
     # print(img_size)
@@ -117,7 +115,6 @@ def get_model(img_size):
 train_ids = next(os.walk(TRAIN_PATH))[1]
 validation_ids = next(os.walk(VALIDATION_PATH))[1]
 test_ids = next(os.walk(TEST_PATH))[1]
-test_ids2 = next(os.walk(TEST_PATH2))[1]
 
 X_train = np.zeros((len(train_ids), IMG_HEIGHT, IMG_WIDTH, IMG_CHANNELS), dtype=np.uint8)
 Y_train = np.zeros((len(train_ids), IMG_HEIGHT, IMG_WIDTH, 1), dtype=np.bool)
@@ -171,9 +168,6 @@ plt.show()
 model = get_model(img_size)
 model.summary()
 
-# load pretrained model
-# model = load_model('my_model.h5')
-
 # train model
 model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
 
@@ -202,25 +196,12 @@ for test_img in range(0, len(test_ids)):
     X_test[n] = img
     n += 1
 
-X_test2 = np.zeros((len(test_ids2), IMG_HEIGHT, IMG_WIDTH, IMG_CHANNELS), dtype=np.uint8)
-sizes_test2 = []
-m = 0
-for test_img2 in range(0, len(test_ids2)):
-    path2 = TEST_PATH2 + '/' + str(m)
-    img = imread(path2 + '/' + str(m) + '.png')[:,:,:IMG_CHANNELS]
-    sizes_test.append([img.shape[0], img.shape[1]])
-    img = resize(img, (IMG_HEIGHT, IMG_WIDTH), mode='constant', preserve_range=True)
-    X_test2[m] = img
-    m += 1
-
 # make predictions
 preds_test = model.predict(X_test, verbose=1)
-preds_test2 = model.predict(X_test2, verbose=1)
 
 # make binary (aufrunden auf 1)
 threshold = 0.5
 preds_test_t = (preds_test > threshold).astype(np.uint8)
-preds_test_t2 = (preds_test2 > threshold).astype(np.uint8)
 
 # save test images
 counter = 0
@@ -246,27 +227,3 @@ for result in preds_test:
    
     counter += 1
 
-# save test images 2
-counter = 0
-for result in preds_test2:
-    img_squeezed2 = np.squeeze(preds_test2[counter])
-    img_squeezed_t2 = np.squeeze(preds_test_t2[counter])
-    img_squeezed2 = img_squeezed2 * 255
-    img_squeezed_t2 = img_squeezed_t2 * 255
-
-    # create folders
-    if not os.path.isdir(output_foldername2):
-        os.mkdir(output_foldername2)
-    if not os.path.isdir(output_foldername2 + '/results'):
-        os.mkdir(output_foldername2 + '/results')
-    if not os.path.isdir(output_foldername2 + '/results_t'):
-        os.mkdir(output_foldername2 + '/results_t')
-        
-    result_path2 = output_foldername2 + '/results/' + str(counter) + '.PNG'
-    result_path_t2 = output_foldername2 + '/results_t/' + str(counter) + '.PNG'
-    
-    cv.imwrite(result_path2, img_squeezed2)
-    cv.imwrite(result_path_t2, img_squeezed_t2)
-
-    counter += 1    
-   

@@ -2,7 +2,7 @@
 
 Modifiziertes U-Net zur semantischen Segmentierung
 
-Voraussetzung: Programmiersprache Python. Die installierten Bibliotheken befinden sich in der Datei „requirements.txt“.
+Voraussetzung: Programmiersprache Python. Die Versionen der installierten Bibliotheken befinden sich in der Datei „requirements.txt“.
 
 Trainingsbilder, dazugehörende Annotationsmasken, Validierungsbilder und Testbilder.
 

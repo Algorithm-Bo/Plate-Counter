@@ -2,11 +2,12 @@ import cv2
 import numpy as np
 import os
 
-
+# folders
 folder_name ='data/images_test_staphylococcus_512x512_20'
 
 output_foldername = 'images_staphylococcus_test_20_512x512_otsu'
 
+# create output folder
 if not os.path.isdir(output_foldername):
     os.mkdir(output_foldername)
 
@@ -21,7 +22,7 @@ for image in range(0, len(filename_list)):
     img = cv2.imread(path)
     # img = cv2.imread(path,0)
 
-    # Grauwertbild
+    # make grayscale
     img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     img = img_gray
 
@@ -42,7 +43,7 @@ for image in range(0, len(filename_list)):
     # cv2.imshow('Gaussian filtered Otsu segmentation', th3)
     # cv2.waitKey(0)
 
-    # Bild speichern
+    # save images
     output_filename = filename
     
     output_path = output_foldername + '/' + output_filename

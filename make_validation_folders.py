@@ -5,22 +5,18 @@ import os
 # images:
 folder_name1 = 'data/images_validation_256x256_10'
 # masks:
-folder_name2 = 'data/binary_masks_validation_256x256_erosion_10'
+folder_name2 = 'data/binary_masks_validation_256x256_special_10'
 
-output_foldername = 'validation_data_256_erosion'
+output_foldername = 'validation_data_256_special'
 
 filename_list = os.listdir(folder_name1)
 print(filename_list)
 
-# Ausgabeordner erstellen, falls nicht vorhanden
+# create output folder
 if not os.path.isdir(output_foldername):
     os.mkdir(output_foldername)
 
-# Dateien nacheinander aufrufen
-n = 0
-
 for image1 in range(0, len(filename_list)):
-    # filename = filename_list[image]
     filename = str(n) + '.PNG'
 
     path1 = folder_name1 + '/' + filename
@@ -46,9 +42,6 @@ for image1 in range(0, len(filename_list)):
     
     os.mkdir('image')
     os.mkdir('mask')
-
-    # output_path_image = output_foldername + '/' + new_folder + '/image/' + filename
-    # output_path_mask = output_foldername + '/' + new_folder + '/mask/' + filename
 
     output_path_image = 'image/' + filename
     # output_path_mask = 'mask/' + filename[:-4] + '.TIF'

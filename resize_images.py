@@ -9,6 +9,7 @@ new_y = 256
 
 output_foldername = 'data/images_test_staphylococcus_256x256_20'
 
+# create output folder
 if not os.path.isdir(output_foldername):
     os.mkdir(output_foldername)
 
